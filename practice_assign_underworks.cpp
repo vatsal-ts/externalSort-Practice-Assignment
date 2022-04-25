@@ -216,22 +216,37 @@ void extSort(file fileToSort)
             prevPassOp.pb(temp);
         }
     }
+    // cout<<"um";
+
     // Subsequently we will execute a b-1 merge until one run is left
+    // bool bo = true;
     while (prevPassOp.size() > 1)
     {
         vvi thisPassOp;
-        for (int i = 0; i <= (n - 1 / (B - 1)); i++)
+        for (int i = 0; i <= (int(prevPassOp.size() - 1) / (B - 1)); i++)
         {
             int start = i * (B - 1);
             int end = min(((i + 1) * (B - 1)) - 1, int(prevPassOp.size() - 1));
+            // start to end inclusive will be B-1 pages which are sorted.
+            vi temp;
             for (int i = start; i <= end; i++)
             {
-                vi temp(all(prevPassOp[i]));
-                sortall(temp);
-                thisPassOp.pb(temp);
+                for (auto x : prevPassOp[i])
+                {
+                    temp.pb(x);
+                }
             }
+            sortall(temp);
+            thisPassOp.pb(temp);
         }
-        prevPassOp=thisPassOp;
+        prevPassOp.clear();
+        prevPassOp = thisPassOp;
+        // bo=false;
+    }
+
+    for (auto x : prevPassOp[0])
+    {
+        cout << x << "\n";
     }
 }
 /*
@@ -260,7 +275,7 @@ void file::status()
 
 int main()
 {
-    fast;
+    // fast;
     cin >> bufferSize >> pageSize;
     file myFile;
     int totalNumRec;
@@ -271,6 +286,7 @@ int main()
         cin >> k;
         myFile.insert(k);
     }
+    extSort(myFile);
     // cout<<myFile.numPages<<"\n";
     // for(auto x:myFile.heap){
     //     cout<<x->numRec<<"\n";
