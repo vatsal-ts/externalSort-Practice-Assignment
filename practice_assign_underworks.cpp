@@ -265,15 +265,12 @@ int main()
     file myFile;
     int totalNumRec;
     cin >> totalNumRec;
-
-
-    vi v(totalNumRec);
-    for(int i = 0; i < totalNumRec; i++)
-        cin >> v[i];
-    sort(v.begin(), v.end());
-    for(int i = 0; i < totalNumRec; i++)
-        cout << v[i] << endl;
-    return 0;
+    fo(i, totalNumRec)
+    {
+        int k;
+        cin >> k;
+        myFile.insert(k);
+    }
     // cout<<myFile.numPages<<"\n";
     // for(auto x:myFile.heap){
     //     cout<<x->numRec<<"\n";
